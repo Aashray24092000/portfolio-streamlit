@@ -7,113 +7,286 @@ from email.mime.multipart import MIMEMultipart
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Asharaya's Portfolio", page_icon="🚀", layout="wide")
 
+# --- STYLES ---
 st.markdown("""
-    <style>
-        .stApp {
-            background-color: #0D0D0D;  /* Charcoal Black */
-            color: #F5F5F5;  /* Warm white font */
+<style>
+    .stApp {
+        background-color: #0D0D0D;
+        color: #F5F5F5;
+    }
+
+    .header {
+        font-size: 22px;
+        font-weight: bold;
+        color: #D4AF37;
+        text-align: center;
+        padding: 12px;
+        background-color: #1C1C1C;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .header a {
+        color: #D4AF37;
+        text-decoration: none;
+        margin: 0 20px;
+    }
+
+    .header a:hover {
+        text-decoration: underline;
+        color: #FFD700;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 16px;
+        color: #D4AF37;
+        background-color: #1C1C1C;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+
+    .contact-form {
+        background-color: #1C1C1C;
+        padding: 10px;
+        border-radius: 12px;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .skill-bar {
+        background-color: #2E2E2E;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20px;
+        margin-bottom: 15px;
+    }
+
+    .skill-level {
+        height: 100%;
+        background-color: #D4AF37;
+        text-align: right;
+        padding-right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+        line-height: 20px;
+        transition: width 1s ease-in-out;
+    }
+
+    .project-card {
+        background-color: #1C1C1C;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+    }
+
+    .project-title {
+        color: #D4AF37;
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .project-tech {
+        color: #CCCCCC;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .project-desc {
+        color: #F5F5F5;
+        font-size: 16px;
+    }
+
+    .stButton > button {
+        background-color: #1f1f1f;
+        color: #FFD700;
+        border: 1px solid #FFD700;
+        border-radius: 8px;
+        padding: 0.5em 1em;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .stButton > button:hover {
+        background-color: #FFD700;
+        color: #000000;
+        border: 1px solid #FFD700;
+        box-shadow: 0 0 10px #FFD70088;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .nav-button button {
+        background-color: #1f1f1f;
+        color: #FFD700;
+        border: 1px solid #FFD700;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .nav-button button:hover {
+        background-color: #FFD700;
+        color: black;
+        box-shadow: 0 0 10px #FFD70088;
+    }
+
+    /* HAMBURGER + TOGGLE */
+    .hamburger {
+        display: none;
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 1001;
+        cursor: pointer;
+    }
+
+    .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: #FFD700;
+        margin: 5px 0;
+        transition: 0.4s;
+    }
+
+    #menu-toggle {
+        display: none;
+    }
+
+    #menu-toggle:checked + .button-scroll-container {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        background-color: #1C1C1C;
+        width: 100%;
+        z-index: 1000;
+        padding: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    @media screen and (max-width: 768px) {
+        .hamburger {
+            display: block;
+        }
+
+        .button-scroll-container {
+            display: none;
         }
 
         .header {
-            font-size: 22px;
-            font-weight: bold;
-            color: #D4AF37;  /* Lux Gold */
-            text-align: center;
-            padding: 12px;
-            background-color: #1C1C1C;  /* Rich Graphite */
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            font-size: 18px;
+            padding: 10px;
+            flex-direction: column;
+            align-items: center;
         }
 
         .header a {
-            color: #D4AF37;
-            text-decoration: none;
-            margin: 0 20px;
-        }
-
-        .header a:hover {
-            text-decoration: underline;
-            color: #FFD700;
+            margin: 8px 0;
+            font-size: 16px;
         }
 
         .footer {
-            text-align: center;
-            font-size: 16px;
-            color: #D4AF37;
-            background-color: #1C1C1C;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
-
-        .contact-form {
-            background-color: #1C1C1C;
-            padding: 10px;
-            border-radius: 12px;
-            margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
-
-        .skill-bar {
-            background-color: #2E2E2E;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 20px;
-            margin-bottom: 15px;
-        }
-
-        .skill-level {
-            height: 100%;
-            background-color: #D4AF37;
-            text-align: right;
-            padding-right: 10px;
             font-size: 14px;
-            font-weight: bold;
-            color: black;
-            line-height: 20px;
-            transition: width 1s ease-in-out;
-        }
-
-        .project-card {
-            background-color: #1C1C1C;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+            padding: 10px;
         }
 
         .project-title {
-            color: #D4AF37;
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .project-tech {
-            color: #CCCCCC;
-            font-size: 14px;
-            margin-bottom: 10px;
+            font-size: 18px;
         }
 
         .project-desc {
-            color: #F5F5F5;
-            font-size: 16px;
+            font-size: 14px;
         }
-    </style>
+
+        .stButton > button {
+            padding: 0.4em 0.8em;
+            font-size: 14px;
+        }
+
+        .contact-form {
+            padding: 8px;
+        }
+
+        .nav-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .button-scroll-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        white-space: nowrap;
+        justify-content: start;
+    }
+
+    .button-scroll-container .element-container {
+        min-width: 120px;
+        flex-shrink: 0;
+    }
+
+    .button-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .button-scroll-container {
+        scrollbar-width: none;
+    }
+</style>
+
+<!-- Hamburger toggle checkbox + icon -->
+<div class="hamburger">
+    <label for="menu-toggle">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
+</div>
+<input type="checkbox" id="menu-toggle" />
 """, unsafe_allow_html=True)
+st.markdown("""
+<script>
+    // Automatically toggle menu on click of the hamburger label
+    document.addEventListener("DOMContentLoaded", function () {
+        const label = document.querySelector(".hamburger label");
+        const checkbox = document.getElementById("menu-toggle");
 
-
+        label.addEventListener("click", function () {
+            checkbox.checked = !checkbox.checked;
+        });
+    });
+</script>
+""", unsafe_allow_html=True)
 
 # --- SESSION STATE ---
 if "section" not in st.session_state:
     st.session_state.section = "About Me"
 
-st.markdown("""
-    <div style="height: 8px; background-color: #1E1E1E; border-radius: 10px; margin-bottom: 20px;"></div>
-""", unsafe_allow_html=True)
+# --- Decorative Line ---
+st.markdown("""<div style="height: 8px; background-color: #1E1E1E; border-radius: 10px; margin-bottom: 20px;"></div>""", unsafe_allow_html=True)
 
-# --- HEADER BUTTONS ---
-col1, col2, col3,col4,col5 = st.columns([1, 1, 1, 1, 1])
+# --- NAVIGATION BUTTONS ---
+st.markdown('<div class="button-scroll-container">', unsafe_allow_html=True)
+
+col1, col2, col3, col4, col5 = st.columns(5)
+
 with col1:
     if st.button("About Me"):
         st.session_state.section = "About Me"
@@ -130,7 +303,7 @@ with col5:
     if st.button("Contact"):
         st.session_state.section = "Contact"
 
-
+st.markdown('</div>', unsafe_allow_html=True)
 # --- EMAIL FUNCTION ---
 def send_email(name, contact, message):
     sender_email = "ashraysingh81@gmail.com"
