@@ -6,7 +6,11 @@ from email.mime.multipart import MIMEMultipart
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Asharaya's Portfolio", page_icon="🚀", layout="wide")
+
 # Add this at the top of your Streamlit script
+import streamlit as st
+
+# Hide default Streamlit elements
 hide_streamlit_style = """
         <style>
         #MainMenu {visibility: hidden;}
@@ -15,7 +19,8 @@ hide_streamlit_style = """
         </style>
         """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-# --- STYLES ---
+
+# --- STYLES + HAMBURGER + TOGGLE ---
 st.markdown("""
 <style>
     .stApp {
@@ -34,6 +39,34 @@ st.markdown("""
         margin-bottom: 25px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     }
+     .nav-button button, .stButton > button {
+    background: linear-gradient(135deg, #9370DB, #8A2BE2, #4B0082);
+    background-size: 200% 200%;
+    animation: gradientFlow 5s ease infinite;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(186, 85, 211, 0.4); /* Soft purple glow */
+}
+
+.nav-button button:hover, .stButton > button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 18px rgba(186, 85, 211, 0.6); /* More intense glow on hover */
+}
+
+
+/* Gradient animation */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
     .header a {
         color: #D4AF37;
@@ -151,24 +184,6 @@ st.markdown("""
         box-shadow: 0 0 10px #FFD70088;
     }
 
-    /* HAMBURGER + TOGGLE */
-    .hamburger {
-        display: none;
-        position: fixed;
-        top: 16px;
-        left: 16px;
-        z-index: 1001;
-        cursor: pointer;
-    }
-
-    .hamburger div {
-        width: 25px;
-        height: 3px;
-        background-color: #FFD700;
-        margin: 5px 0;
-        transition: 0.4s;
-    }
-
     #menu-toggle {
         display: none;
     }
@@ -257,6 +272,10 @@ st.markdown("""
     .button-scroll-container {
         scrollbar-width: none;
     }
+
+    #menu-toggle:checked + .button-scroll-container {
+        display: flex !important;
+    }
 </style>
 
 <!-- Hamburger toggle checkbox + icon -->
@@ -269,9 +288,10 @@ st.markdown("""
 </div>
 <input type="checkbox" id="menu-toggle" />
 """, unsafe_allow_html=True)
+
+# --- JavaScript to toggle hamburger manually ---
 st.markdown("""
 <script>
-    // Automatically toggle menu on click of the hamburger label
     document.addEventListener("DOMContentLoaded", function () {
         const label = document.querySelector(".hamburger label");
         const checkbox = document.getElementById("menu-toggle");
@@ -283,35 +303,32 @@ st.markdown("""
 </script>
 """, unsafe_allow_html=True)
 
+
 # --- SESSION STATE ---
 if "section" not in st.session_state:
     st.session_state.section = "About Me"
 
 # --- Decorative Line ---
-st.markdown("""<div style="height: 8px; background-color: #1E1E1E; border-radius: 10px; margin-bottom: 20px;"></div>""", unsafe_allow_html=True)
+st.markdown("""
+<div style="height: 8px; background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00); border-radius: 10px; margin-bottom: 20px;"></div>
+""", unsafe_allow_html=True)
 
-# --- NAVIGATION BUTTONS ---
+# --- NAVIGATION BUTTONS (Horizontal Scroll using Columns) ---
 st.markdown('<div class="button-scroll-container">', unsafe_allow_html=True)
 
-col1, col2, col3, col4, col5 = st.columns(5)
+nav_sections = ["About Me", "Experience", "Skills", "Projects", "Contact"]
 
-with col1:
-    if st.button("About Me"):
-        st.session_state.section = "About Me"
-with col2:
-    if st.button("Experience"):
-        st.session_state.section = "Experience"
-with col3:
-    if st.button("Skills"):
-        st.session_state.section = "Skills"
-with col4:
-    if st.button("Projects"):
-        st.session_state.section = "Projects"
-with col5:
-    if st.button("Contact"):
-        st.session_state.section = "Contact"
+# Use columns to force horizontal layout
+cols = st.columns(len(nav_sections))
+for col, section in zip(cols, nav_sections):
+    with col:
+        if st.button(section, key=section):
+            st.session_state.section = section
 
 st.markdown('</div>', unsafe_allow_html=True)
+
+
+
 # --- EMAIL FUNCTION ---
 def send_email(name, contact, message):
     sender_email = "ashraysingh81@gmail.com"
