@@ -6,7 +6,15 @@ from email.mime.multipart import MIMEMultipart
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Asharaya's Portfolio", page_icon="🚀", layout="wide")
-
+# Add this at the top of your Streamlit script
+hide_streamlit_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # --- STYLES ---
 st.markdown("""
 <style>
