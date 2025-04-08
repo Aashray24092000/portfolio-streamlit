@@ -35,9 +35,10 @@ You can view the live version of my portfolio at [My Portfolio](https://asharaya
    ```bash
    git clone https://github.com/Aashray24092000/portfolio-streamlit.git
    cd portfolio-streamlit
+   pip install -r requirements.txt
+   streamlit run portfolio.py
 
-pip install -r requirements.txt
-streamlit run portfolio.py
+
 
 Contribution
 Feel free to fork this project, submit issues, or make pull requests for improvements. Contributions are always welcome!
