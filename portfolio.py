@@ -523,6 +523,26 @@ elif st.session_state.section == "Projects":
 
     **Outcome:** Helped understand behavioral trends, group engagement, and active time slots in chat groups.
     """)
+    st.markdown("---")
+    st.image("1.png", width=500)  # replace with your actual image path
+    st.subheader("Personal Portfolio")
+
+    st.markdown("""
+    **Tech Used:** Python, Streamlit, HTML, CSS, JavaScript, SQLite, Firebase, etc.
+
+    **Description:**  
+    An interactive personal portfolio website showcasing my skills, experience, and projects. The portfolio includes the following sections:
+
+    - **About Me:** A brief introduction to who I am, my background, and my aspirations.
+    - **Experience:** A summary of my work experience, internships, and achievements.
+    - **Projects:** A collection of projects I have worked on, with detailed descriptions and links to code and live demos.
+    - **Skills:** A list of technical and soft skills I possess, along with proficiency levels and examples of use cases.
+    - **Contact:** Information on how to reach out to me for collaboration, freelance opportunities, or general inquiries.
+
+    **Outcome:** This portfolio showcases my growth as a developer and serves as a testament to my continuous learning and evolving expertise in software development, AI, and web technologies. It is a live platform where visitors can interact with my work, explore my projects, and contact me for further collaboration or opportunities.
+    """)
+
+
 
 
 
