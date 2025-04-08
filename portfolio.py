@@ -540,6 +540,7 @@ elif st.session_state.section == "Projects":
     - **Contact:** Information on how to reach out to me for collaboration, freelance opportunities, or general inquiries.
 
     **Outcome:** This portfolio showcases my growth as a developer and serves as a testament to my continuous learning and evolving expertise in software development, AI, and web technologies. It is a live platform where visitors can interact with my work, explore my projects, and contact me for further collaboration or opportunities.
+                [Visit My Portfolio](https://asharaya-portfolio.streamlit.app/)
     """)
 
 
